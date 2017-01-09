@@ -6,7 +6,7 @@ Enigma is an offline Scramble, Boggle and Scrabble solver. Just take a snap of t
 
 ## Why is it?
 
-This was designed as a proof-of-concept of *a completly offline* image recognition and processing system based only on local javascript with *no server side code*.
+This was designed as a proof-of-concept of **a completly offline** image recognition and processing system based only on local javascript with **no server side code**.
 
 ## Using Locally
 
