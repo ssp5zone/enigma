@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Enigma</title>
+		
+		<!-- bower:css -->
+		<link rel="stylesheet" href="assets/bower_components/gridly/stylesheets/jquery.gridly.css" />
+		<link rel="stylesheet" href="assets/bower_components/jquery-modal/jquery.modal.min.css" />
+		<link rel="stylesheet" href="assets/bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" />
+		<!-- endbower -->
+  		
+  		<!-- bower:js -->
+  		<script src="assets/bower_components/jquery/jquery.min.js"></script>
+  		<script src="assets/bower_components/gridly/javascripts/jquery.gridly.js"></script>
+  		<script src="assets/bower_components/jquery-circle-progress/dist/circle-progress.min.js"></script>
+  		<script src="assets/bower_components/jquery-modal/jquery.modal.min.js"></script>
+  		<script src="assets/bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+  		<script src="assets/bower_components/tesseract.js/dist/tesseract.js"></script>
+  		<!-- endbower -->
+
+  		<!-- Custom CSS -->
+  		<link rel="stylesheet" type="text/css" href="assets/css/app.css">
+
+  		<!-- Custom JS -->
+		<script type="text/javascript" src="assets/js/array.js"></script>
+		<script type="text/javascript" src="assets/js/app.js"></script>				
+  		
+	</head>
+	<body class="wood1">
+		<div class="main-wrapper">
+			<header class="header backdrop">
+				<section class="logo">
+					<p class="logo-text-2">En<span>i</span>g<span>m</span>a</p>
+				</section>
+			</header>
+			<main class="main">
+				<section class="overlay hidden">
+					<div class="progress">
+						<p class="progress-status"></p>
+						<strong></strong>
+						<p class='actions text-center m-t-lg'>
+				          <a class='view-result button hidden' href='#'>View Result</a>
+				        </p>
+					</div>			
+				</section>
+				<section class="input-image extra-padding">
+					<div class="tesseract-offline-container container">
+						<div class="offline-switch">
+							<p><strong>OFFLINE MODE</strong></p>
+							<input id="offline-toggle" class="terreract-offline" type="checkbox">
+							<label for="offline-toggle"><span></span></label>
+						</div>
+					</div>					
+					<input type="file" id="file-input" class="hidden"/>
+					<div class="drop-zone-container">
+						<div class="drop-zone container">						
+							<p class="drop-zone-text m-a-0">Drop image here or Click to upload.</p>
+							<p class="drop-zone-text">Or just Paste (Ctrl + V) the copied image anywhere.</p>
+							<small class="drop-zone-subtext">Paste is experi-mental and might not work.</small>
+						</div>
+					</div>
+					<div id="dropped-image-container" class="modal img-modal">
+						<img src="" id="dropped-image"/>
+						<a href="javascript:void(0);" id="close-dropped-image" class="close-modal ">Close</a>
+					</div>					
+					<div class="m-t-sm">
+						<a href="javascript:void(0);" id="recognize" class="button">Recognize</a>				
+						<a href="javascript:void(0);" id="skip-1" class="button">Skip</a>
+					</div>
+					<div class="alternate-source">
+						<p>Alternate Chracter Recognition: 
+							<a class="hyperlink" href="http://www.onlineocr.net/" target="_blank">Online OCR</a>
+						</p>
+						<small>* Click skip button to enter the text manually.</small>
+					</div>
+				</section>
+				<section class="input hidden">
+					<textarea id="ocr-text" placeholder="Dump OCR output here" rows="25" cols="100"></textarea>
+					<div class="m-t-sm">
+						<a href="#" id="gridify" class="button">Gridify</a>				
+						<a href="#" id="test" class="button">Test</a>	
+						<a href="javascript:void(0);" id="back-1" class="button">Back</a>			
+					</div>	
+				</section>
+				<section class='output hidden'>
+			        <div class='gridly'>        
+			        </div>
+			        <p class='actions text-center'>
+			          <a class='add button' href='#'>Add</a>
+			          <a class='button' href='#modal-dict-type' rel="modal:open">Process</a>
+			          <a class='reset button' href='#'>Reset</a>
+			        </p>
+			    </section>
+			    <section class='result hidden'>
+			    	<div class="word-count m-l-sm">
+			    		<p>
+			    			<strong>Total Words = <span></span></strong>
+			    		</p>
+			    	</div>
+			    	<div class="actions text-left m-a-sm">
+			    		<a class='sort button' href='#modal-sort' rel="modal:open">Sort</a>
+			    		<a class="filter button" href="#modal-filter" rel="modal:open">Filter</a>
+			    		<div class="filter-container"><b>Show Only: <span class="hide-min">1</span></b> <input type="text" class="m-x-sm" id="hide-range"/> <b class="hide-max"></b></div>
+			    	</div>
+			    	<div class="words-container">
+			    		<ol class="words"></ol>
+			    	</div>
+			        <p class='actions text-center'>
+			          <a class='new button' href='#'>New</a>
+			        </p>
+			    </section>
+			    <aside id="modal-prompt" class="modal text-center" style="display:none;">
+			    	<p class="modal-prompt-text"></p>
+			    	<div class="action">
+			    		<a class='continue button' href='#'>Continue</a>
+			    		<a class='cancel button' href='#'>Cancel</a>
+			    	</div>			    	
+			    </aside>
+			    <aside id="modal-warning" class="modal" style="display:none;">
+			    	<p class="modal-warning-text"></p>
+			    </aside>
+			    <aside id="modal-dict-type" class="modal text-center" style="display:none;">
+			    	<p class="modal-text"><strong>Match word against...</strong></p>
+			    	<p class="action">
+			    		<a class='process-popular button' href='#'>Only popular words</a>
+			    		<a class='process-dictonary button' href='#'>Entire Dictinary</a>
+			    	</p>
+			    </aside>
+			    <aside id="modal-sort" class="modal text-center" style="display:none;">
+			    	<p class="modal-text"><strong>Sort by...</strong></p>
+			    	<p class="action">
+			    		<a class='sort-popularity button btn-md' href='#'>Popularity</a>
+			    		<a class='sort-length button btn-md' href='#'>Length</a>
+			    		<a class='sort-alphabet button btn-md' href='#'>A - Z</a>
+			    	</p>
+			    </aside>
+			    <aside id="modal-filter" class="modal text-center" style="display:none;">
+			    	<p class="modal-text"><strong>Filter...</strong></p>
+			    	<p class="action">
+			    		<a class='filter-redundant button' href='#'>Redundant</a>
+			    		<a class='button' href='#modal-filter-length' rel="modal:open">By Length</a>
+			    	</p>
+			    </aside>
+			    <aside id="modal-filter-length" class="modal text-center" style="display:none;">
+			    	<p>Filter by length: <b>3</b> <input type="text" class="m-x-sm" id="filter-range" value="" data-slider-min="3" 
+			    	 data-slider-max="30" data-slider-step="1" data-slider-value="[3,30]"/> <b>30</b></p>
+			    	<p class="action">
+			    		<a class='filter-length button' href='#'>Filter</a>
+			    	</p>
+			    </aside>
+			    <aside class="keyhole"></aside>
+		    </main>
+		    <footer class="footer">
+		    	<section class="theme-selection text-right">
+		    		<span class="theme-button plain" data="plain"></span>
+		    		<span class="theme-button wood1 active" data="wood1"></span>
+		    		<span class="theme-button wood2" data="wood2"></span>
+		    	</section>
+		    	<section class="footer-data backdrop">
+	    			<span class="copy-left-symbol">©</span> 
+					<a class="creator" href="https://github.com/ssp5zone/SourceQuote" target="_blank">
+						<p class="logo-text-2">S<span>a</span>ur<span>a</span>bh Si<span>n</span>gh</p> 
+						<p class="logo-text">Pa<span>r</span>iha<span>r</span></p>
+					</a> 2016
+					<span class="copy-left-text pull-right hidden-xs">Copy-left Licence. Free to copy.</span>
+		    	</section>
+		    </footer>
+	    </div>
+	</body>
+</html>

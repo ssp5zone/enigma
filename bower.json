@@ -1,0 +1,54 @@
+{
+  "name": "enigma",
+  "description": "Finds words hidden in a word matrix",
+  "main": "",
+  "authors": [
+    "Me"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.8.3",
+    "gridly": "^1.2.9",
+    "jquery-circle-progress": "^1.2.0",
+    "jquery-modal": "^0.8.0",
+    "seiyria-bootstrap-slider": "^9.5.3",
+    "tesseract.js": "https://github.com/naptha/tesseract.js.git#^1.0.10",
+    "tesseract-core": "https://cdn.rawgit.com/naptha/tesseract.js-core/0.1.0/index.js"
+  },
+  "overrides": {
+    "jquery": {
+      "main": "jquery.min.js"
+    },
+    "jquery-circle-progress": {
+      "main": "dist/circle-progress.min.js"
+    },
+    "jquery-modal": {
+      "main": [
+        "jquery.modal.min.js",
+        "jquery.modal.min.css",
+        "close.png",
+        "spinner.gif"
+      ]
+    },
+    "seiyria-bootstrap-slider": {
+      "main": [
+        "dist/bootstrap-slider.min.js",
+        "dist/css/bootstrap-slider.min.css"
+      ]
+    },
+    "tesseract.js": {
+      "main": [
+        "dist/tesseract.js"
+      ]
+    }
+  }
+}
